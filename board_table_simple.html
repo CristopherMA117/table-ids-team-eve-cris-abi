@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tablero de Tareas Simple</title>
+ <style>
+ 
+    :root {
+      --primary: #0052cc;
+      --secondary: #f4f5f7;
+      --border: #dfe1e6;
+      --text: #172b4d;
+      --hover: #ebecf0;
+      --todo: #4bade8;
+      --progress: #e9b04d;
+      --done: #5bcb7e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    }
+
+    body {
+      background-color: #107bac;
+      color: var(--text);
+      padding: 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h1 {
+      color: white;
+      font-weight: 600;
+    }
+
+    .add-task-form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .add-task-form input, .add-task-form select {
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font-size: 14px;
+    }
+
+    .add-task-form input {
+      flex-grow: 1;
+    }
+
+    button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    button:hover {
+      background-color: #0040a0;
+    }
+
+    .board {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      padding-bottom: 20px;
+    }
+
+    .column {
+      background-color: var(--secondary);
+      border-radius: 5px;
+      min-width: 280px;
+      padding: 15px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .column-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .column-title {
+      font-weight: 600;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .column-title::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .todo .column-title::before { background-color: var(--todo); }
+    .progress .column-title::before { background-color: var(--progress); }
+    .done .column-title::before { background-color: var(--done); }
+
+    .task-count {
+      background-color: rgba(9, 30, 66, 0.08);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 2px 8px;
+      font-size: 12px;
+    }
+
+    .task-list {
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .task {
+      background-color: white;
+      border-radius: 3px;
+      padding: 12px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      cursor: grab;
+      transition: box-shadow 0.2s;
+    }
+
+    .task:hover { box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); }
+
+    .task-title {
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .task-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 5px;
+      margin-top: 10px;
+    }
+
+    .task-actions button {
+      padding: 5px 8px;
+      font-size: 12px;
+    }
+
+    .task-actions [data-move] {
+      background-color: transparent;
+      color: var(--primary);
+      border: 1px solid var(--border);
+    }
+
+    .task-actions [data-move]:hover {
+      background-color: var(--hover);
+    }
+
+    .task-actions [data-delete] {
+      background-color: #ff5630;
+      color: white;
+    }
+
+    .task-actions [data-delete]:hover {
+      background-color: #de350b;
+    }
+
+    .empty-state {
+      color: #6b778c;
+      text-align: center;
+      padding: 20px;
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      .board { flex-direction: column; }
+      .column { min-width: auto; }
+    }
+ </style>
+</head>
+<body>
+  <header>
+    <h1>Tablero de Tareas</h1>
+  </header>
+
+  <!-- Formulario para agregar tareas -->
+  <div class="add-task-form">
+    <input type="text" id="taskInput" placeholder="Escribe una nueva tarea...">
+    <select id="statusSelect">
+      <option value="todo">Por hacer</option>
+      <option value="progress">En progreso</option>
+      <option value="done">Hecho</option>
+    </select>
+    <button id="addTaskBtn">Agregar tarea</button>
+  </div>
+
+  <!-- Columnas del tablero -->
+  <div class="board">
+    <div class="column todo">
+      <div class="column-header">
+        <div class="column-title">Por hacer</div>
+        <span class="task-count" id="todoCount">0</span>
+      </div>
+      <div class="task-list" id="todoList" data-status="todo"></div>
+    </div>
+
+    <div class="column progress">
+      <div class="column-header">
+        <div class="column-title">En progreso</div>
+        <span class="task-count" id="progressCount">0</span>
+      </div>
+      <div class="task-list" id="progressList" data-status="progress"></div>
+    </div>
+
+    <div class="column done">
+      <div class="column-header">
+        <div class="column-title">Hecho</div>
+        <span class="task-count" id="doneCount">0</span>
+      </div>
+      <div class="task-list" id="doneList" data-status="done"></div>
+    </div>
+  </div>
+
+  <!-- Script externo -->
+  <script src="script_tablero.js"></script>
+</body>
+</html>
