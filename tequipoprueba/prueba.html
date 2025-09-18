@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tablero prueba</title>
+</head>
+<body>
+  <h1>Tablero de Tareas</h1>
+
+  <input type="text" id="taskInput" placeholder="Escribe una tarea...">
+  <select id="statusSelect">
+    <option value="todo">Por hacer</option>
+    <option value="progress">En progreso</option>
+    <option value="done">Hecho</option>
+  </select>
+  <button id="addTaskBtn">Agregar</button>
+
+  <h2>Por hacer (<span id="todoCount">0</span>)</h2>
+  <ul id="todoList"></ul>
+
+  <h2>En progreso (<span id="progressCount">0</span>)</h2>
+  <ul id="progressList"></ul>
+
+  <h2>Hecho (<span id="doneCount">0</span>)</h2>
+  <ul id="doneList"></ul>
+
+  <script src="prueba.js"></script>
+</body>
+</html>
