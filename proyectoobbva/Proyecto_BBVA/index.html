@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBVA - Banca Móvil</title>
+    <style>
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            padding: 20px;
+            padding-bottom: 70px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #002856 0%, #004481 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        /* Formularios */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .btn {
+            background-color: #0073ce;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #005fa4;
+        }
+        
+        .btn-secondary {
+            background-color: #e8f0fe;
+            color: #0073ce;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d9e6f7;
+        }
+        
+        .link {
+            color: #0073ce;
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        /* Tarjetas */
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .account-card {
+            border-left: 4px solid #0073ce;
+        }
+        
+        .offer-card {
+            border-left: 4px solid #ff6200;
+        }
+        
+        .card-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .card-amount {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        /* Secciones */
+        .section-title {
+            margin: 20px 0 15px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #002856;
+        }
+        
+        /* Navegación */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            background-color: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+        }
+        
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .nav-item.active {
+            color: #0073ce;
+        }
+        
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        /* Detalles */
+        .detail-header {
+            background: linear-gradient(135deg, #002856 0%, #004481 100%);
+            color: white;
+            padding: 20px;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .detail-title {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        
+        .detail-subtitle {
+            font-size: 16px;
+            opacity: 0.8;
+        }
+        
+        .detail-content {
+            padding: 0 20px;
+        }
+        
+        .operations {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .operation {
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .operation-icon {
+            background-color: #e8f0fe;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            color: #0073ce;
+            font-size: 20px;
+        }
+        
+        .operation-name {
+            font-size: 12px;
+            color: #555;
+        }
+        
+        /* Utilidades */
+        .hidden {
+            display: none;
+        }
+        
+        .text-right {
+            text-align: right;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+        
+        .tag-primary {
+            background-color: #e8f0fe;
+            color: #0073ce;
+        }
+        
+        .tag-orange {
+            background-color: #fff0e5;
+            color: #ff6200;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- PANTALLA DE LOGIN -->
+    <div id="login-screen">
+        <header>
+            <div class="logo">BBVA</div>
+            <p>Banca Móvil</p>
+        </header>
+        
+        <div class="container">
+            <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" placeholder="tu.correo@ejemplo.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" placeholder="Ingresa tu contraseña">
+            </div>
+            
+            <button class="btn" onclick="showDashboard()">Iniciar sesión</button>
+            
+            <a href="#" class="link" onclick="alert('Función de recuperación de contraseña')">¿Olvidaste tu contraseña?</a>
+        </div>
+    </div>
+    
+    <!-- PANTALLA DE DASHBOARD -->
+    <div id="dashboard-screen" class="hidden">
+        <header>
+            <div class="logo">BBVA</div>
+            <p>Hola, Carlos</p>
+        </header>
+        
+        <div class="container">
+            <h2 class="section-title">Mis Cuentas</h2>
+            
+            <div class="card account-card" onclick="showAccountDetail()">
+                <div class="card-title">Cuenta Corriente</div>
+                <div class="card-amount">S/ 4,580.75</div>
+                <span class="tag tag-primary">**** 4589</span>
+            </div>
+            
+            <div class="card account-card" onclick="showAccountDetail()">
+                <div class="card-title">Cuenta Ahorros</div>
+                <div class="card-amount">S/ 12,350.20</div>
+                <span class="tag tag-primary">**** 7821</span>
+            </div>
+            
+            <h2 class="section-title">Ofertas para ti</h2>
+            
+            <div class="card offer-card" onclick="showOfferDetail()">
+                <div class="card-title">Préstamo Personal</div>
+                <p>Hasta S/ 50,000 con tasa preferencial</p>
+                <span class="tag tag-orange">Aprobación inmediata</span>
+            </div>
+            
+            <div class="card offer-card" onclick="showOfferDetail()">
+                <div class="card-title">Seguro de Vida</div>
+                <p>Protección para tu familia desde S/ 30 mensual</p>
+                <span class="tag tag-orange">Nueva oferta</span>
+            </div>
+            
+            <div class="card offer-card" onclick="showOfferDetail()">
+                <div class="card-title">Tarjeta de Crédito</div>
+                <p>Hasta 48 meses sin intereses</p>
+                <span class="tag tag-orange">Promoción limitada</span>
+            </div>
+        </div>
+        
+        <div class="bottom-nav">
+            <div class="nav-item active">
+                <div class="nav-icon">🏠</div>
+                <div>Inicio</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">💳</div>
+                <div>Productos</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">📊</div>
+                <div>Análisis</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">👤</div>
+                <div>Perfil</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- PANTALLA DE DETALLE DE CUENTA -->
+    <div id="account-detail-screen" class="hidden">
+        <div class="detail-header">
+            <div class="detail-title">Cuenta Corriente</div>
+            <div class="detail-subtitle">**** 4589</div>
+            <div class="card-amount">S/ 4,580.75</div>
+            <div class="text-right">Saldo disponible</div>
+        </div>
+        
+        <div class="detail-content">
+            <h3>Operaciones frecuentes</h3>
+            
+            <div class="operations">
+                <div class="operation">
+                    <div class="operation-icon">⇄</div>
+                    <div class="operation-name">Transferir</div>
+                </div>
+                <div class="operation">
+                    <div class="operation-icon">📱</div>
+                    <div class="operation-name">Pagar</div>
+                </div>
+                <div class="operation">
+                    <div class="operation-icon">💡</div>
+                    <div class="operation-name">Servicios</div>
+                </div>
+                <div class="operation">
+                    <div class="operation-icon">📤</div>
+                    <div class="operation-name">Retirar</div>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <h3>Movimientos recientes</h3>
+            
+            <div class="card">
+                <div class="card-title">Transferencia recibida</div>
+                <p>15 Oct - Juan Pérez</p>
+                <div class="text-right" style="color: green;">+ S/ 500.00</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Pago de servicios</div>
+                <p>14 Oct - Luz</p>
+                <div class="text-right" style="color: red;">- S/ 185.30</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Compra con tarjeta</div>
+                <p>13 Oct - Supermercado</p>
+                <div class="text-right" style="color: red;">- S/ 247.50</div>
+            </div>
+            
+            <button class="btn btn-secondary" onclick="showDashboard()">Volver al inicio</button>
+        </div>
+    </div>
+    
+    <!-- PANTALLA DE DETALLE DE OFERTA -->
+    <div id="offer-detail-screen" class="hidden">
+        <div class="detail-header">
+            <div class="detail-title">Préstamo Personal</div>
+            <div class="detail-subtitle">Aprobación inmediata</div>
+        </div>
+        
+        <div class="detail-content">
+            <div class="card">
+                <div class="card-title">Beneficios</div>
+                <ul style="padding-left: 20px; margin: 10px 0;">
+                    <li>Hasta S/ 50,000 de financiamiento</li>
+                    <li>Tasa preferencial 9.5% anual</li>
+                    <li>Plazo de hasta 60 meses</li>
+                    <li>Desembolso en 24 horas</li>
+                    <li>Sin comisión por prepago</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Requisitos</div>
+                <ul style="padding-left: 20px; margin: 10px 0;">
+                    <li>Mayor de 18 años</li>
+                    <li>Ingresos mínimos de S/ 1,500</li>
+                    <li>Antigüedad laboral de 6 meses</li>
+                    <li>Documento de identidad vigente</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Ejemplo de cuota mensual</div>
+                <p>Por un préstamo de S/ 10,000 a 36 meses:</p>
+                <div class="card-amount">S/ 320.75/mes</div>
+            </div>
+            
+            <button class="btn">Solicitar ahora</button>
+            <button class="btn btn-secondary" onclick="showDashboard()">Volver atrás</button>
+        </div>
+    </div>
+
+    <script>
+        // Funciones para cambiar entre pantallas
+        function showDashboard() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('dashboard-screen').classList.remove('hidden');
+            document.getElementById('account-detail-screen').classList.add('hidden');
+            document.getElementById('offer-detail-screen').classList.add('hidden');
+        }
+        
+        function showAccountDetail() {
+            document.getElementById('dashboard-screen').classList.add('hidden');
+            document.getElementById('account-detail-screen').classList.remove('hidden');
+        }
+        
+        function showOfferDetail() {
+            document.getElementById('dashboard-screen').classList.add('hidden');
+            document.getElementById('offer-detail-screen').classList.remove('hidden');
+        }
+        
+        // Inicialmente mostrar login
+        document.getElementById('login-screen').classList.remove('hidden');
+    </script>
+</body>
+</html>

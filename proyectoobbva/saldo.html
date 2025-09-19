@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBVA - Consultar Saldo</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="bbva-header">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHJlY3QgeD0iMTAiIHk9IjIwIiB3aWR0aD0iODAiIGhlaWdodD0iNjAiIGZpbGw9IiMwMDcyQkYiLz48dGV4dCB4PSIyNSIgeT0iNjUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0id2hpdGUiPkJCVkE8L3RleHQ+PC9zdmc+" alt="BBVA Logo">
+                <h1>BBVA - Saldo de <span id="nombreUsuario"></span></h1>
+            </div>
+            <nav>
+                <a href="dashboard.html">Inicio</a>
+                <a href="saldo.html" class="nav-active">Consultar Saldo</a>
+                <a href="#" id="btnCerrarSesion">Cerrar Sesión</a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="saldo-container">
+                <h2>Tu saldo disponible es:</h2>
+                <div class="saldo" id="saldo">$0.00</div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

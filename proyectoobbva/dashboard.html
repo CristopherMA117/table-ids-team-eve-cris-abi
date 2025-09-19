@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBVA - Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="bbva-header">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHJlY3QgeD0iMTAiIHk9IjIwIiB3aWR0aD0iODAiIGhlaWdodD0iNjAiIGZpbGw9IiMwMDcyQkYiLz48dGV4dCB4PSIyNSIgeT0iNjUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0id2hpdGUiPkJCVkE8L3RleHQ+PC9zdmc+" alt="BBVA Logo">
+                <h1>BBVA - Bienvenido <span id="nombreUsuario"></span></h1>
+            </div>
+            <nav>
+                <a href="dashboard.html" class="nav-active">Inicio</a>
+                <a href="saldo.html">Consultar Saldo</a>
+                <a href="#" id="btnCerrarSesion">Cerrar Sesión</a>
+            </nav>
+        </header>
+        
+        <main>
+            <h2>Ofertas de Tarjetas de Crédito</h2>
+            <div id="tarjetas" class="tarjetas-container">
+                <!-- Las tarjetas se cargarán dinámicamente con JavaScript -->
+            </div>
+        </main>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
